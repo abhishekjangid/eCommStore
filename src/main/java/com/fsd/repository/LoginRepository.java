@@ -12,7 +12,7 @@ import java.sql.SQLException;
 public class LoginRepository {
 
     public boolean login(String userId, String password) {
-        Connection conn = ConnectionFactory.getConnection();
+        Connection conn = ConnectionFactory.getInstance().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement(SQL.LOGIN_SQL);
             statement.setString(1, userId);
@@ -25,12 +25,14 @@ public class LoginRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionFactory.getInstance().closeConnection(conn);
         }
         return false;
     }
 
     public boolean register(User user) {
-        Connection conn = ConnectionFactory.getConnection();
+        Connection conn = ConnectionFactory.getInstance().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement(SQL.REGISTER_SQL);
             statement.setString(1, user.getUserName());
@@ -46,6 +48,8 @@ public class LoginRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            ConnectionFactory.getInstance().closeConnection(conn);
         }
         return false;
     }

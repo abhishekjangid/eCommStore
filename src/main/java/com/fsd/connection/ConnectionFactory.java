@@ -5,28 +5,30 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
-
-    private static Connection INSTANCE;
-
+    private static ConnectionFactory INSTANCE;
     private ConnectionFactory () {}
-
-    public static Connection getConnection() {
+    public static ConnectionFactory getInstance() {
         if(INSTANCE == null) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                INSTANCE = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/ecomfsd","root","root");
-            } catch (ClassNotFoundException | SQLException ex) {
-                ex.printStackTrace();
-            }
+            return new ConnectionFactory();
         }
         return INSTANCE;
     }
+    public Connection getConnection() {
+        Connection connection = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/ecomfsd","root","root");
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return connection;
+    }
 
-    public static void closeConnection() {
-        if(INSTANCE != null) {
+    public void closeConnection(Connection connection) {
+        if(connection != null) {
             try {
-                INSTANCE.close();
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
