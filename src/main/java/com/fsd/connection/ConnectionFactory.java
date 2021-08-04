@@ -1,20 +1,35 @@
 package com.fsd.connection;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    private static final ConnectionFactory INSTANCE = new ConnectionFactory();
+    private static Connection INSTANCE;
 
-    private ConnectionFactory () {
+    private ConnectionFactory () {}
 
-    }
-
-    private ConnectionFactory getInstance(){
+    public static Connection getConnection() {
+        if(INSTANCE == null) {
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                INSTANCE = DriverManager.getConnection(
+                        "jdbc:mysql://localhost:3306/ecomfsd","root","root");
+            } catch (ClassNotFoundException | SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
         return INSTANCE;
     }
 
-    private Connection getConnection(){
-        return null;
+    public static void closeConnection() {
+        if(INSTANCE != null) {
+            try {
+                INSTANCE.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
