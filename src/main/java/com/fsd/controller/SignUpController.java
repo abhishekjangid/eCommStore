@@ -13,8 +13,24 @@ public class SignUpController {
         System.out.println("| Welcome to Sign Up Process!");
         System.out.println("+================================+");
 
-        System.out.println("Enter user id and Password:");
+        System.out.println("Are you buyer (Yes/No):");
         User user = new User();
+        boolean retry = false;
+        do {
+            switch(consoleScan.nextLine().toUpperCase()) {
+                case "YES":
+                case "Y":
+                    user.setUserType('B');
+                    break;
+                case "No":
+                case "N":
+                    user.setUserType('S');
+                    break;
+                default:
+                    retry = true;
+                    System.out.println("Enter valid entry. \nAre you buyer (Yes/No): ");
+            }
+        } while(retry);
         System.out.println("User Id : ");
         user.setUserName(consoleScan.nextLine());
         System.out.println("Password : ");

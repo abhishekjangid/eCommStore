@@ -34,7 +34,7 @@ public class MainController {
         System.out.println("+================================+");
 
         String choiceEntered;
-        System.out.println("\nEnter Choice (1, 2, 3) : ");
+        System.out.println("Enter Choice (1, 2, 3) : ");
         choiceEntered = consoleScan.nextLine();
         try {
             return Integer.parseInt(choiceEntered);

@@ -7,6 +7,7 @@ public class User {
     private String id;
     private String userName;
     private String password;
+    private char userType;
     private String contactNumber;
     private String email;
     private String address;
@@ -26,6 +27,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public char getUserType() {
+        return userType;
+    }
+
+    public void setUserType(char userType) {
+        this.userType = userType;
     }
 
     public String getPassword() {
@@ -73,7 +82,7 @@ public class User {
         return "Seller{" +
                 "id='" + id + '\'' +
                 ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
+                ", userType='" + userType + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +

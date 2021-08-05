@@ -19,12 +19,17 @@ public class LoginController {
         String password = consoleScan.nextLine();
         System.out.println();
 
-        boolean isLoginSuccess = new LoginServiceImpl().login(userId, password);
+        String userType = new LoginServiceImpl().login(userId, password);
 
-        if(isLoginSuccess) {
+        if(userType != null) {
             System.out.println("+================================+");
-            System.out.println("| Login Successful!");
-            System.out.println("+================================+");
+            System.out.println("| Welcome " + userId);
+            if(userType.equalsIgnoreCase("B")) {
+                BuyerController.start();
+            } else {
+                SellerController.start();
+            }
+            return true;
         } else {
             System.out.println("+================================+");
             System.out.println("| Login failed!");

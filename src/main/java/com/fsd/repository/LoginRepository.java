@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class LoginRepository {
 
-    public boolean login(String userId, String password) {
+    public String login(String userId, String password) {
         Connection conn = ConnectionFactory.getInstance().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement(SQL.LOGIN_SQL);
@@ -21,14 +21,14 @@ public class LoginRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
-                return true;
+                return resultSet.getString(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             ConnectionFactory.getInstance().closeConnection(conn);
         }
-        return false;
+        return null;
     }
 
     public boolean register(User user) {
@@ -37,9 +37,10 @@ public class LoginRepository {
             PreparedStatement statement = conn.prepareStatement(SQL.REGISTER_SQL);
             statement.setString(1, user.getUserName());
             statement.setString(2, user.getPassword());
-            statement.setString(3, user.getContactNumber());
-            statement.setString(4, user.getEmail());
-            statement.setString(5, user.getAddress());
+            statement.setString(3, user.getUserType() + "");
+            statement.setString(4, user.getContactNumber());
+            statement.setString(5, user.getEmail());
+            statement.setString(6, user.getAddress());
 
             int update = statement.executeUpdate();
 
