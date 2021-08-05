@@ -3,7 +3,8 @@ package com.fsd.model;
 public class Product {
     private int id;
     private String productName;
-    private String makeYear;
+    private int makeYear;
+    private String category;
     private String modelNumber;
     private float price;
     private int sellerId;
@@ -27,11 +28,19 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getMakeYear() {
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getMakeYear() {
         return makeYear;
     }
 
-    public void setMakeYear(String makeYear) {
+    public void setMakeYear(int makeYear) {
         this.makeYear = makeYear;
     }
 

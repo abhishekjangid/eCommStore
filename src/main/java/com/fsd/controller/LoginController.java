@@ -29,13 +29,12 @@ public class LoginController {
             } else {
                 SellerController.start();
             }
-            return true;
         } else {
             System.out.println("+================================+");
             System.out.println("| Login failed!");
             System.out.println("+================================+");
         }
 
-        return false;
+        return true;
     }
 }
