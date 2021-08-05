@@ -45,7 +45,7 @@ public class SellerRepository {
 
     public void updatePrice(Product product) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(SQL.UPDATE_PRODUCT_QUANTITY);
+            PreparedStatement statement = conn.prepareStatement(SQL.UPDATE_PRODUCT_PRICE);
             statement.setFloat(1, product.getPrice());
             statement.setInt(2, product.getId());
             statement.execute();
