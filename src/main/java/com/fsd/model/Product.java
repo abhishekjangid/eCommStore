@@ -104,7 +104,6 @@ public class Product {
                 ", sellerId='" + sellerId + '\'' +
                 ", currentNumbersStock=" + currentNumbersStock +
                 ", specifications='" + specifications + '\'' +
-                ", remarks='" + remarks + '\'' +
-                '}';
+                ", remarks='" + remarks + '\'' ;
     }
 }
