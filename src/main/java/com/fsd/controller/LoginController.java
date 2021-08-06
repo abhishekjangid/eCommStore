@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class LoginController {
     public static boolean startLogin() {
         Scanner consoleScan = new Scanner(System.in);
+        SecurityContext.clearContext();
 
         System.out.println("+================================+");
         System.out.println("| Welcome to Login Process!");
@@ -22,7 +23,7 @@ public class LoginController {
 
         SecurityContext context = new LoginServiceImpl().login(userId, password);
 
-        System.out.println("+================================+" + context);
+        System.out.println("+================================+");
         if(context != null) {
             System.out.println("| Welcome " + context.getUserName());
             if(context.getUserType().equalsIgnoreCase("B")) {

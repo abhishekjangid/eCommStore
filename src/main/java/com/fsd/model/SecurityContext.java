@@ -20,6 +20,12 @@ public class SecurityContext {
         return INSTANCE;
     }
 
+    public static void clearContext() {
+        if(INSTANCE != null) {
+            INSTANCE = null;
+        }
+    }
+
     public String getId() {
         return id;
     }

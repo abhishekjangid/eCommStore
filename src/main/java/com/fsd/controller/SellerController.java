@@ -29,8 +29,17 @@ public class SellerController {
                     controller.viewProducts(context.getId());
                     break;
                 case 3:
+                    controller.viewSpecificProduct();
+                    break;
+                case 4:
+                    controller.UpdatePrice();
+                    break;
+                case 5:
+                    controller.UpdateStock();
+                    break;
+                case 6:
                     System.out.println("Thank you for visiting today!");
-                    System.exit(1);
+                    new MainController().start();
                     break;
                 default:
                     System.out.println("Enter a Valid Option!");
@@ -42,7 +51,10 @@ public class SellerController {
         System.out.println("+================================+");
         System.out.println("|1. Sell Product |");
         System.out.println("|2. View Products |");
-        System.out.println("|3. Logout. |");
+        System.out.println("|3. View specific Product |");
+        System.out.println("|4. Update Price |");
+        System.out.println("|5. Update Quantity |");
+        System.out.println("|6. Logout. |");
         System.out.println("+================================+");
 
         String choiceEntered;
@@ -51,7 +63,6 @@ public class SellerController {
         try {
             return Integer.parseInt(choiceEntered);
         } catch (NumberFormatException ex) {
-            System.out.println("Enter a valid choice (1, 2, 3). Try Again!");
             return 0;
         }
     }
@@ -92,15 +103,82 @@ public class SellerController {
         service.addProduct(product);
     }
 
-    private void viewProducts(String ID) {
+    private void viewProducts(String sellerId) {
         System.out.println("+================================+");
         System.out.println("| Product Details");
         System.out.println("+================================+");
 
-        List<Product> products = service.getProducts(ID);
+        List<Product> products = service.getProducts(sellerId);
         for(Product product : products) {
             System.out.println(product);
         }
         System.out.println("+================================+");
     }
+
+    private void viewSpecificProduct() {
+        System.out.println("Enter Product ID you want to view:");
+        final String ID = consoleScan.nextLine();
+        System.out.println("+================================+");
+        System.out.println("| Product Detail");
+        System.out.println("+================================+");
+
+        Product product = service.getProduct(Integer.parseInt(ID));
+        if(product != null) {
+            System.out.println(product);
+        } else {
+            System.out.println("| Product not found: ID: " + ID);
+        }
+        System.out.println("+================================+");
+    }
+
+    private void UpdateStock() {
+        System.out.println("Enter Product ID you want to update:");
+        final String ID = consoleScan.nextLine();
+        System.out.println("+================================+");
+        System.out.println("| Product Detail");
+        System.out.println("+================================+");
+
+        Product product = service.getProduct(Integer.parseInt(ID));
+        if(product != null) {
+            System.out.println(product);
+            System.out.println("+================================+");
+            System.out.println("Enter Stock Quantity you want to update:");
+            final String stock = consoleScan.nextLine();
+            product.setCurrentNumbersStock(Integer.parseInt(stock));
+            if(service.updateQuantity(product) == 0){
+                System.out.println("| Update failed: ID: " + ID);
+            } else {
+                System.out.println("| Update Successful: ID: " + ID);
+            }
+        } else {
+            System.out.println("| Product not found: ID: " + ID);
+        }
+        System.out.println("+================================+");
+    }
+
+    private void UpdatePrice() {
+        System.out.println("Enter Product ID you want to update:");
+        final String ID = consoleScan.nextLine();
+        System.out.println("+================================+");
+        System.out.println("| Product Detail");
+        System.out.println("+================================+");
+
+        Product product = service.getProduct(Integer.parseInt(ID));
+        if(product != null) {
+            System.out.println(product);
+            System.out.println("+================================+");
+            System.out.println("Enter Price you want to update:");
+            final String price = consoleScan.nextLine();
+            product.setPrice(Float.parseFloat(price));
+            if(service.updatePrice(product) == 0){
+                System.out.println("| Update failed: ID: " + ID);
+            } else {
+                System.out.println("| Update Successful: ID: " + ID);
+            }
+        } else {
+            System.out.println("| Product not found: ID: " + ID);
+        }
+        System.out.println("+================================+");
+    }
+
 }

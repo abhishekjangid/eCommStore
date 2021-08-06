@@ -21,13 +21,13 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public void updateQuantity(int productId, int quantity) {
-
+    public int updateQuantity(Product product) {
+        return repository.updateQuantity(product);
     }
 
     @Override
-    public void updatePrice(int productId, float price) {
-
+    public int updatePrice(Product product) {
+        return repository.updatePrice(product);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public Product getProduct(int productId) {
-        return null;
+        return repository.getProduct(productId);
     }
 }
