@@ -1,7 +1,9 @@
 package com.fsd.configs;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -13,10 +15,12 @@ public enum ApplicationConfigs {
     ApplicationConfigs(){
         // TODO write same code using classic java File reader
         try {
-            configs =  Files.lines(Paths.get("application.properties"))
+            Path path = Paths.get(getClass().getClassLoader()
+                    .getResource("application.properties").toURI());
+            configs =  Files.lines(path)
                     .map(line -> line.split("=", 2))
                     .collect(Collectors.toMap(e -> e[0], e -> e[1]));
-        }catch(IOException e) {
+        }catch(IOException | URISyntaxException e) {
             throw new RuntimeException("!!Exception while reading application config", e);
         }
     }
