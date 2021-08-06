@@ -1,5 +1,7 @@
 package com.fsd.service;
 
+import com.fsd.model.SecurityContext;
+
 public interface LoginService {
-    String login(String userId, String password);
+    SecurityContext login(String userId, String password);
 }

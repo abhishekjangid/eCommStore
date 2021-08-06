@@ -1,11 +1,12 @@
 package com.fsd.service.impl;
 
+import com.fsd.model.SecurityContext;
 import com.fsd.model.User;
 import com.fsd.repository.LoginRepository;
 import com.fsd.service.LoginService;
 
 public class LoginServiceImpl implements LoginService {
-    public String login(String userId, String password) {
+    public SecurityContext login(String userId, String password) {
         return new LoginRepository().login(userId, password);
     }
 

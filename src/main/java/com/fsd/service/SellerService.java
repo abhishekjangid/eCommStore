@@ -11,7 +11,7 @@ public interface SellerService {
 
     void updatePrice(int productId, float price);
 
-    // List<Product> getProduct(int SellerId);
+    List<Product> getProducts(String SellerId);
 
     Product getProduct(int productId);
 }

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SellerRepository {
@@ -20,7 +21,7 @@ public class SellerRepository {
             statement.setString(3, product.getCategory());
             statement.setString(4, product.getModelNumber());
             statement.setFloat(5, product.getPrice());
-            statement.setInt(6, product.getSellerId());
+            statement.setString(6, product.getSellerId());
             statement.setInt(7, product.getCurrentNumbersStock());
             statement.setString(8, product.getSpecifications());
             statement.setString(9, product.getRemarks());
@@ -64,8 +65,8 @@ public class SellerRepository {
                 product.setMakeYear(rs.getInt("MAKE_YEAR"));
                 product.setModelNumber(rs.getString("MODEL_NUMBER"));
                 product.setPrice(rs.getFloat("PRICE"));
-                product.setSellerId(rs.getInt("SELLER_ID"));
-                product.setCurrentNumbersStock(rs.getInt("CURRENT_STOCK"));
+                product.setSellerId(rs.getString("SELLER_ID"));
+                product.setCurrentNumbersStock(rs.getInt("QUANTITY"));
                 product.setSpecifications(rs.getString("SPECS"));
                 product.setRemarks(rs.getString("REMARKS"));
             }
@@ -73,6 +74,32 @@ public class SellerRepository {
             throw new RuntimeException("Exception occurred while adding product", e);
         }
         return product;
+    }
+
+    public List<Product> getProducts(String sellerId){
+        List<Product> productList =  new ArrayList<>();
+        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(SQL.GET_PRODUCTS_FOR_SELLERID);
+            statement.setString(1, sellerId);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                Product product = new Product();
+                product.setId(rs.getInt("ID"));
+                product.setProductName(rs.getString("NAME"));
+                product.setMakeYear(rs.getInt("MAKE_YEAR"));
+                product.setModelNumber(rs.getString("MODEL_NUMBER"));
+                product.setPrice(rs.getFloat("PRICE"));
+                product.setSellerId(rs.getString("SELLER_ID"));
+                product.setCurrentNumbersStock(rs.getInt("QUANTITY"));
+                product.setSpecifications(rs.getString("SPECS"));
+                product.setRemarks(rs.getString("REMARKS"));
+
+                productList.add(product);
+            }
+        }catch (Exception e){
+            throw new RuntimeException("Exception occurred while adding product", e);
+        }
+        return productList;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.fsd.controller;
 
+import com.fsd.model.SecurityContext;
 import com.fsd.service.impl.LoginServiceImpl;
 
 import java.util.Scanner;
@@ -19,15 +20,15 @@ public class LoginController {
         String password = consoleScan.nextLine();
         System.out.println();
 
-        String userType = new LoginServiceImpl().login(userId, password);
+        SecurityContext context = new LoginServiceImpl().login(userId, password);
 
-        if(userType != null) {
-            System.out.println("+================================+");
-            System.out.println("| Welcome " + userId);
-            if(userType.equalsIgnoreCase("B")) {
-                BuyerController.start();
+        System.out.println("+================================+" + context);
+        if(context != null) {
+            System.out.println("| Welcome " + context.getUserName());
+            if(context.getUserType().equalsIgnoreCase("B")) {
+                BuyerController.start(context);
             } else {
-                SellerController.start();
+                SellerController.start(context);
             }
         } else {
             System.out.println("+================================+");

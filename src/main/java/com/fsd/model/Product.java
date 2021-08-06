@@ -7,7 +7,7 @@ public class Product {
     private String category;
     private String modelNumber;
     private float price;
-    private int sellerId;
+    private String sellerId;
     private int currentNumbersStock;
     private String specifications;
     private String remarks;
@@ -60,11 +60,11 @@ public class Product {
         this.price = price;
     }
 
-    public int getSellerId() {
+    public String getSellerId() {
         return sellerId;
     }
 
-    public void setSellerId(int sellerId) {
+    public void setSellerId(String sellerId) {
         this.sellerId = sellerId;
     }
 
@@ -90,5 +90,21 @@ public class Product {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", makeYear=" + makeYear +
+                ", category='" + category + '\'' +
+                ", modelNumber='" + modelNumber + '\'' +
+                ", price=" + price +
+                ", sellerId='" + sellerId + '\'' +
+                ", currentNumbersStock=" + currentNumbersStock +
+                ", specifications='" + specifications + '\'' +
+                ", remarks='" + remarks + '\'' +
+                '}';
     }
 }

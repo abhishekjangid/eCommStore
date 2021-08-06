@@ -1,6 +1,7 @@
 package com.fsd.repository;
 
 import com.fsd.connection.ConnectionFactory;
+import com.fsd.model.SecurityContext;
 import com.fsd.model.User;
 import com.fsd.utils.SQL;
 
@@ -11,7 +12,7 @@ import java.sql.SQLException;
 
 public class LoginRepository {
 
-    public String login(String userId, String password) {
+    public SecurityContext login(String userId, String password) {
         Connection conn = ConnectionFactory.getInstance().getConnection();
         try {
             PreparedStatement statement = conn.prepareStatement(SQL.LOGIN_SQL);
@@ -21,7 +22,11 @@ public class LoginRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
-                return resultSet.getString(1);
+                return SecurityContext.getContext(
+                        resultSet.getString("ID"),
+                        resultSet.getString("USERNAME"),
+                        resultSet.getString("USERTYPE")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
