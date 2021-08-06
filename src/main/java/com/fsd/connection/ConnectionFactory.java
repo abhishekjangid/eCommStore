@@ -1,10 +1,13 @@
 package com.fsd.connection;
 
+import com.fsd.configs.ApplicationConfigs;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionFactory {
+
     private static ConnectionFactory INSTANCE;
     private ConnectionFactory () {}
     public static ConnectionFactory getInstance() {
@@ -16,9 +19,11 @@ public class ConnectionFactory {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName(ApplicationConfigs.getInstance().get("jdbc.driver"));
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/ecomfsd","root","root");
+                    ApplicationConfigs.getInstance().get("jdbc.url"),
+                    ApplicationConfigs.getInstance().get("jdbc.username"),
+                    ApplicationConfigs.getInstance().get("jdbc.password"));
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
         }
