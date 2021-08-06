@@ -9,6 +9,7 @@ import com.fsd.repository.SellerRepository;
 import com.fsd.service.BuyerService;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class BuyerServiceImpl implements BuyerService {
@@ -28,12 +29,12 @@ public class BuyerServiceImpl implements BuyerService {
     @Override
     public List<Product> searchProducts(ProductFilter filter) {
         return this.searchProducts().parallelStream()
-                .filter(product -> filter.getProductName() == null || product.getProductName().contains(filter.getProductName()))
+                .filter(product -> filter.getProductName() == null || product.getProductName().toUpperCase().contains(filter.getProductName().toUpperCase()))
                 .filter(product -> filter.getMinPrice() == 0.0F || product.getPrice() >= filter.getMinPrice())
                 .filter(product -> filter.getMaxPrice() == 0.0F || product.getPrice() <= filter.getMaxPrice())
                 .filter(product -> filter.getMakeYear() == 0 || filter.getMakeYear() == product.getMakeYear())
-                .filter(product -> filter.getModelNumber() == null || product.getModelNumber().contains(filter.getModelNumber()))
-                .filter(product -> filter.getCategory() == null || product.getCategory().contains(filter.getCategory()))
+                .filter(product -> filter.getModelNumber() == null || product.getModelNumber().toUpperCase().contains(filter.getModelNumber().toUpperCase()))
+                .filter(product -> filter.getCategory() == null || product.getCategory().toUpperCase().contains(filter.getCategory().toUpperCase()))
                 .collect(Collectors.toList());
     }
 

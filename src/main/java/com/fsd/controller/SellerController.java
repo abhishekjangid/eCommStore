@@ -101,6 +101,8 @@ public class SellerController {
         product.setRemarks(remarks);
 
         service.addProduct(product);
+
+        System.out.println("| Product successfully added for sell: Product Name: " + productName);
     }
 
     private void viewProducts(String sellerId) {

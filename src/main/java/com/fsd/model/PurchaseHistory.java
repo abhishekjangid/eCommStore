@@ -75,6 +75,6 @@ public class PurchaseHistory {
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", purchaseDate=" + purchaseDate +
-                ", remarks='" + remarks;
+                ", remarks=" + remarks ;
     }
 }
