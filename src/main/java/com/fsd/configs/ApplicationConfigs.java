@@ -2,6 +2,7 @@ package com.fsd.configs;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,11 +14,10 @@ public enum ApplicationConfigs {
     INSTANCE;
 
     ApplicationConfigs(){
-        // TODO write same code using classic java File reader
         try {
             Path path = Paths.get(getClass().getClassLoader()
                     .getResource("application.properties").toURI());
-            configs =  Files.lines(path)
+            configs =  Files.lines(path, StandardCharsets.UTF_8)
                     .map(line -> line.split("=", 2))
                     .collect(Collectors.toMap(e -> e[0], e -> e[1]));
         }catch(IOException | URISyntaxException e) {

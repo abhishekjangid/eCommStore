@@ -7,7 +7,6 @@ import com.fsd.utils.SQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,37 +30,39 @@ public class SellerRepository {
         }
     }
 
-    public void updateQuantity(Product product) {
+    public int updateQuantity(Product product) {
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
             PreparedStatement statement = conn.prepareStatement(SQL.UPDATE_PRODUCT_QUANTITY);
             statement.setInt(1, product.getCurrentNumbersStock());
             statement.setInt(2, product.getId());
-            statement.executeBatch();
+            return statement.executeUpdate();
         }catch (Exception e){
             throw new RuntimeException("Exception occurred while adding product", e);
         }
     }
 
-    public void updatePrice(Product product) {
-        try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
+    public int updatePrice(Product product) {
+        try (Connection conn = ConnectionFactory.getInstance().getConnection()) {
             PreparedStatement statement = conn.prepareStatement(SQL.UPDATE_PRODUCT_PRICE);
             statement.setFloat(1, product.getPrice());
             statement.setInt(2, product.getId());
-            statement.execute();
-        }catch (Exception e){
+            return statement.executeUpdate();
+        } catch (Exception e){
             throw new RuntimeException("Exception occurred while adding product", e);
         }
     }
 
-    public Product getProduct(int productId){
-        Product product = new Product();
+    public Product getProduct(int productId) {
+        Product product = null;
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
             PreparedStatement statement = conn.prepareStatement(SQL.GET_PRODUCT_DETAILS);
             statement.setInt(1, productId);
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
+                product = new Product();
                 product.setId(rs.getInt("ID"));
                 product.setProductName(rs.getString("NAME"));
+                product.setCategory(rs.getString("CATEGORY"));
                 product.setMakeYear(rs.getInt("MAKE_YEAR"));
                 product.setModelNumber(rs.getString("MODEL_NUMBER"));
                 product.setPrice(rs.getFloat("PRICE"));
@@ -70,7 +71,7 @@ public class SellerRepository {
                 product.setSpecifications(rs.getString("SPECS"));
                 product.setRemarks(rs.getString("REMARKS"));
             }
-        }catch (Exception e){
+        } catch (Exception e){
             throw new RuntimeException("Exception occurred while adding product", e);
         }
         return product;
@@ -86,6 +87,7 @@ public class SellerRepository {
                 Product product = new Product();
                 product.setId(rs.getInt("ID"));
                 product.setProductName(rs.getString("NAME"));
+                product.setCategory(rs.getString("CATEGORY"));
                 product.setMakeYear(rs.getInt("MAKE_YEAR"));
                 product.setModelNumber(rs.getString("MODEL_NUMBER"));
                 product.setPrice(rs.getFloat("PRICE"));

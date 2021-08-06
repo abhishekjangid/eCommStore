@@ -22,6 +22,7 @@ public class LoginRepository {
             ResultSet resultSet = statement.executeQuery();
 
             if(resultSet.next()) {
+                System.out.println(resultSet);
                 return SecurityContext.getContext(
                         resultSet.getString("ID"),
                         resultSet.getString("USERNAME"),

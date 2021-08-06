@@ -7,9 +7,9 @@ import java.util.List;
 public interface SellerService {
     void addProduct(Product product);
 
-    void updateQuantity(int productId, int quantity);
+    int updateQuantity(Product product);
 
-    void updatePrice(int productId, float price);
+    int updatePrice(Product product);
 
     List<Product> getProducts(String SellerId);
 

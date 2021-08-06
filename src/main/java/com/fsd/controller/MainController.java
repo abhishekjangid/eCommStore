@@ -1,5 +1,7 @@
 package com.fsd.controller;
 
+import com.fsd.model.SecurityContext;
+
 import java.util.Scanner;
 
 public class MainController {
@@ -7,6 +9,7 @@ public class MainController {
 
     public void start() {
         boolean continueApp = true;
+        SecurityContext.clearContext();
         while(continueApp){
             switch (displayMainOptions()) {
                 case 1:
