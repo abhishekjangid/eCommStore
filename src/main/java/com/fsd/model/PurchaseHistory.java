@@ -66,4 +66,15 @@ public class PurchaseHistory {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", buyerId=" + buyerId +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", purchaseDate=" + purchaseDate +
+                ", remarks='" + remarks;
+    }
 }

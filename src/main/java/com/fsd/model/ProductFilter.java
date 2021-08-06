@@ -2,7 +2,8 @@ package com.fsd.model;
 
 public class ProductFilter {
     private String productName;
-    private String makeYear;
+    private String category;
+    private int makeYear;
     private String modelNumber;
     private float minPrice;
     private float maxPrice;
@@ -15,11 +16,11 @@ public class ProductFilter {
         this.productName = productName;
     }
 
-    public String getMakeYear() {
+    public int getMakeYear() {
         return makeYear;
     }
 
-    public void setMakeYear(String makeYear) {
+    public void setMakeYear(int makeYear) {
         this.makeYear = makeYear;
     }
 
@@ -45,5 +46,25 @@ public class ProductFilter {
 
     public void setMaxPrice(float maxPrice) {
         this.maxPrice = maxPrice;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductFilter{" +
+                "productName='" + productName + '\'' +
+                ", category='" + category + '\'' +
+                ", makeYear=" + makeYear +
+                ", modelNumber='" + modelNumber + '\'' +
+                ", minPrice=" + minPrice +
+                ", maxPrice=" + maxPrice +
+                '}';
     }
 }

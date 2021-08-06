@@ -58,7 +58,7 @@ public class SellerController {
         System.out.println("+================================+");
 
         String choiceEntered;
-        System.out.println("Enter Choice (1, 2, 3) : ");
+        System.out.println("Enter Choice (1, 2, 3, 4, 5, 6) : ");
         choiceEntered = consoleScan.nextLine();
         try {
             return Integer.parseInt(choiceEntered);

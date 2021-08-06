@@ -80,7 +80,7 @@ public class SellerRepository {
     public List<Product> getProducts(String sellerId){
         List<Product> productList =  new ArrayList<>();
         try(Connection conn = ConnectionFactory.getInstance().getConnection()) {
-            PreparedStatement statement = conn.prepareStatement(SQL.GET_PRODUCTS_FOR_SELLERID);
+            PreparedStatement statement = conn.prepareStatement(SQL.GET_PRODUCTS_FOR_SELLER_ID);
             statement.setString(1, sellerId);
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
