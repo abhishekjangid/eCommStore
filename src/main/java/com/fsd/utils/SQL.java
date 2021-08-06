@@ -9,4 +9,8 @@ public class SQL {
     public static String UPDATE_PRODUCT_PRICE = "UPDATE ECOMFSD.PRODUCT SET PRICE = ?  WHERE ID = ?;";
     public static String GET_PRODUCT_DETAILS = "SELECT * FROM ECOMFSD.PRODUCT WHERE ID = ?;";
     public static String GET_PRODUCTS_FOR_SELLERID = "SELECT * FROM ECOMFSD.PRODUCT WHERE SELLER_ID = ?;";
+
+    // Buyers Queries
+    public static String GET_ALL_PRODUCT = "SELECT * FROM ECOMFSD.PRODUCT WHERE 1 = 1 ";
+    public static String GET_PURCHASE_HISTORY = "SELECT * FROM ECOMFSD.PURCHASE_HISTORY WHERE BUYER_ID = ? ";
 }
